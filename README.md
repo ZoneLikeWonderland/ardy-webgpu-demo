@@ -1,5 +1,7 @@
 # ARDY WebGPU Student
 
+[![Deploy GitHub Pages](https://github.com/ZoneLikeWonderland/ardy-webgpu-demo/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/ZoneLikeWonderland/ardy-webgpu-demo/actions/workflows/deploy-pages.yml)
+
 [Open the live GitHub Pages demo](https://zonelikewonderland.github.io/ardy-webgpu-demo/)
 
 This repository is a research snapshot of a compact, browser-native student of

@@ -1905,3 +1905,24 @@ matched-time 的收益仍然强烈依赖 weight×iterations，并非单调。最
 机器上没有现成 Nginx/Caddy、域名或证书，因此保留 HTTP 8766，并用 Python 标准库为同一站点新增独立 HTTPS 8767。创建了受保护的本地测试 CA 和带 `IP:<SERVER_IP>` SAN 的服务器叶子证书；CA/server 私钥均位于静态根目录之外且权限 600，只有公开 CA 证书复制到静态站点供受控测试机下载。`compare_server.py` 新增可选 `--certfile/--keyfile`，TLS 最低版本为 1.2；当前实际协商 TLS 1.3 `TLS_AES_256_GCM_SHA384`，CA 链与 IP 校验 `Verify return code: 0`。HTTPS 预检页、infinite demo、公开 CA 和 motion-stats API 均实测 HTTP 200。
 
 局域网/VPN 用户现在可访问 `https://<SERVER_IP>:8767/` 或 `https://<SERVER_IP>:8767/infinite_demo.html`；原 HTTP 预检页也新增了这两个入口和 CA 下载说明。第一次可在证书警告中选择高级继续；反复测试可在受控 Windows 测试机安装 `ARDY WebGPU LAN Test CA`，其 SHA-256 为 `14:83:D9:C7:43:00:EC:5A:C7:D0:DD:32:FA:39:95:76:BD:24:C4:22:34:19:E9:34:2B:0F:FE:95:75:41:27:6B`。正式无警告分享仍应使用域名加公网/组织 CA，因为公网 CA 不会直接给 `<SERVER_IP>` 私网 IP 签普通可信证书。完整操作与安全注意事项记录在 `WebGPU_HTTPS测试说明.md`。全过程没有安装任何包、没有执行 conda 命令，也没有修改 `<REFERENCE_3DLM_PROJECT>`。
+
+## 2026-07-19：GitHub Pages 公开静态部署
+
+- 公开仓库：`https://github.com/ZoneLikeWonderland/ardy-webgpu-demo`。
+- HTTPS demo：`https://zonelikewonderland.github.io/ardy-webgpu-demo/`。
+- 发布集固定为 active
+  `text_qwen_dmd_ladd_joint22500_u05legacy_g400_ema_pilot_20260715`：3 个
+  learned FP16 ONNX、2 个固定 finalizer、ORT WebGPU runtime、33 条预计算
+  Qwen prompt feature 和动画前端。teacher、文本编码器、历史模型、raw data、训练
+  state、credentials 和 TLS 私钥均未进入仓库。
+- 5 个 ONNX 合计 `104,107,876 B = 99.29 MiB`；完整 Pages artifact 为
+  `129,774,339 B = 123.76 MiB`；最大 `flow.onnx` 为 `75,809,680 B =
+  72.30 MiB`，低于 GitHub 100 MiB 单文件硬限制。
+- `/api/demo/motion-stats` 已固化成 330 维静态 JSON；telemetry/remote-command
+  bridge 默认关闭，仅显式 `?bridge=1` 时启用。公开页面不依赖 Python 服务，推理
+  完全运行在访问者浏览器 WebGPU 上。
+- Pages workflow 的 bundle SHA/尺寸/白名单校验、两组后处理测试、artifact upload
+  和 deploy 全部成功。公网 CDN 对 HTML、JS/MJS、WASM、prompt、stats、5 个 ONNX
+  和 license 的请求均为 HTTPS 200；flow Range 实体请求返回 206。
+- 该 release 仍标记为 `experimental_pilot`。部署完整性通过不等于动画质量最终验收；
+  真实浏览器上的连续 rollout、waypoint、prompt 和后处理交互仍需人工观察。
