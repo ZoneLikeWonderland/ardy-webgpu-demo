@@ -1,0 +1,9 @@
+{
+  "name": "ardy-webgpu-demo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/frontend/postprocess.test.mjs tests/frontend/postprocess.real.test.mjs"
+  }
+}
+

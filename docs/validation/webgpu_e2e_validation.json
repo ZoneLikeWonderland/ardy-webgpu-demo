@@ -1,0 +1,78 @@
+{
+  "passed": false,
+  "performance_passed": true,
+  "numeric_parity_passed": true,
+  "visual_quality_passed": false,
+  "rejection_reason": "2026-07-14 browser review found persistent high-frequency root-path jitter and noisy body motion; conversion correctness and latency do not constitute an acceptable demo.",
+  "timestamp_date": "2026-07-14",
+  "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36 Edg/149.0.0.0",
+  "adapter": {
+    "vendor": "nvidia",
+    "architecture": "ampere",
+    "shader_f16": true
+  },
+  "precision": "fp32",
+  "nfe": 1,
+  "model_load_ms": 5699.94,
+  "cold_initial_window_ms": {
+    "total": 363.775,
+    "flow": 298.565,
+    "decode_pipeline": 65.145
+  },
+  "continuation_benchmark": {
+    "warmup_runs": 3,
+    "timed_runs": 20,
+    "all_finite": true,
+    "total_ms": {
+      "min": 57.59,
+      "p50": 68.83,
+      "p90": 80.131,
+      "p95": 86.673,
+      "max": 92.05,
+      "mean": 70.73
+    },
+    "encoder_session_run_ms": {
+      "p50": 11.263,
+      "p95": 16.724
+    },
+    "flow_session_run_ms": {
+      "p50": 35.577,
+      "p95": 43.045
+    },
+    "finalize_ms": {
+      "p50": 0.388,
+      "p95": 0.613
+    },
+    "decoder_session_run_ms": {
+      "p50": 21.22,
+      "p95": 27.76
+    },
+    "inertialization_crop_ms": {
+      "p50": 0.015,
+      "p95": 0.026
+    },
+    "browser_fk_ms": {
+      "p50": 0.113,
+      "p95": 0.166
+    }
+  },
+  "budgets": {
+    "ideal_p50_ms": 100,
+    "required_p95_ms": 170,
+    "p50_passed": true,
+    "p95_passed": true
+  },
+  "long_playback_observation": {
+    "all_reported_windows_finite": true,
+    "observed_frame_index": 551,
+    "observed_buffer_frames": 593,
+    "observed_generation_count": 40,
+    "buffer_growth_seen": true,
+    "manual_sparse_waypoint_errors_m": [0.7472618641, 1.7727260184]
+  },
+  "limits": {
+    "visual_quality_requires_human_review": true,
+    "background_tabs_throttle_requestAnimationFrame": true,
+    "gpu_peak_memory_not_reported_by_webgpu": true
+  }
+}

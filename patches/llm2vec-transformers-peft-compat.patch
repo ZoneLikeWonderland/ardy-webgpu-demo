@@ -1,0 +1,64 @@
+diff --git a/ardy/model/llm2vec/llm2vec.py b/ardy/model/llm2vec/llm2vec.py
+index 3becfa4..53f60bd 100644
+--- a/ardy/model/llm2vec/llm2vec.py
++++ b/ardy/model/llm2vec/llm2vec.py
+@@ -54,6 +54,7 @@ from transformers import (
+     PretrainedConfig,
+     Qwen2Config,
+ )
++from transformers.utils import find_adapter_config_file
+ 
+ logger = logging.getLogger(__name__)
+ 
+@@ -121,17 +122,40 @@ class LLM2Vec(nn.Module):
+         keys = ["pooling_mode", "max_length", "doc_max_length", "skip_instruction"]
+         encoder_args = {key: kwargs.pop(key, None) for key in keys if kwargs.get(key) is not None}
+ 
+-        tokenizer = AutoTokenizer.from_pretrained(base_model_name_or_path)
++        # The first LLM2Vec checkpoint is itself a PEFT adapter.  Newer
++        # Transformers versions try to auto-load adapters passed to
++        # ``from_pretrained`` and rewrite their state-dict keys, which does not
++        # match the McGill LLM2Vec checkpoints. Resolve the real base model and
++        # apply this first adapter explicitly through PEFT instead.
++        tokenizer_name_or_path = base_model_name_or_path
++        primary_peft_model_name_or_path = None
++        adapter_lookup_kwargs = {
++            key: kwargs[key]
++            for key in ("cache_dir", "force_download", "proxies", "token", "revision", "local_files_only", "subfolder")
++            if key in kwargs
++        }
++        adapter_config_file = find_adapter_config_file(base_model_name_or_path, **adapter_lookup_kwargs)
++        if adapter_config_file is not None:
++            with open(adapter_config_file, "r") as fIn:
++                adapter_config = json.load(fIn)
++            primary_peft_model_name_or_path = base_model_name_or_path
++            base_model_name_or_path = adapter_config["base_model_name_or_path"]
++
++        tokenizer = AutoTokenizer.from_pretrained(tokenizer_name_or_path)
+         tokenizer.pad_token = tokenizer.eos_token
+         tokenizer.padding_side = "left"
+ 
+-        config = AutoConfig.from_pretrained(base_model_name_or_path)
++        config = AutoConfig.from_pretrained(tokenizer_name_or_path)
+         config_class_name = config.__class__.__name__
+ 
+         model_class = cls._get_model_class(config_class_name, enable_bidirectional=enable_bidirectional)
+ 
+         model = model_class.from_pretrained(base_model_name_or_path, **kwargs)
+ 
++        if primary_peft_model_name_or_path is not None:
++            model = PeftModel.from_pretrained(model, primary_peft_model_name_or_path)
++            model = model.merge_and_unload()
++
+         if os.path.isdir(base_model_name_or_path) and os.path.exists(f"{base_model_name_or_path}/config.json"):
+             with open(f"{base_model_name_or_path}/config.json", "r") as fIn:
+                 config_dict = json.load(fIn)
+@@ -139,7 +163,7 @@ class LLM2Vec(nn.Module):
+             model.config._name_or_path = config._name_or_path
+ 
+         # For special case where config.json and adapter weights are in the same directory
+-        if hasattr(model, "peft_config"):
++        if primary_peft_model_name_or_path is None and hasattr(model, "peft_config"):
+             model = PeftModel.from_pretrained(
+                 model,
+                 base_model_name_or_path,

@@ -1,0 +1,42 @@
+{
+  "schema": "ardy_edge_fp16_baseline_v1",
+  "model_release": "standard48m_dmd2_final1000_ema_fp16",
+  "browser": "Edge 149",
+  "adapter": {
+    "vendor": "nvidia",
+    "architecture": "ampere",
+    "shader_f16": true
+  },
+  "validation": {
+    "passed": false,
+    "initial": {
+      "endpoint_max_abs": 0.087890625,
+      "endpoint_mean_abs": 0.012561914083119985,
+      "fsq_bin_match_fraction": 0.8546875,
+      "motion_max_abs": 1.380859375,
+      "motion_mean_abs": 0.044543249768788824,
+      "motion_p99_abs": 0.3339941406250002,
+      "motion_cosine": 0.997183584661697
+    },
+    "continuation": {
+      "history_mean_abs": 0.004552731412872704,
+      "history_cosine": 0.999750452829782,
+      "endpoint_max_abs": 0.08642578125,
+      "endpoint_mean_abs": 0.015542200449350717,
+      "fsq_bin_match_fraction": 0.83046875,
+      "motion_max_abs": 0.8193359375,
+      "motion_mean_abs": 0.03880823894820148,
+      "motion_p99_abs": 0.22955993652343765,
+      "motion_cosine": 0.9988821238365106
+    }
+  },
+  "benchmark": {
+    "warmup_runs": 3,
+    "timed_runs": 20,
+    "total_ms": {"p50": 127.96749997138977, "p95": 154.85624984502795},
+    "encoder_session_ms": {"p50": 13.534999966621399, "p95": 22.794249868392946},
+    "flow_session_ms": {"p50": 75.31749999523163, "p95": 93.14124990701677},
+    "decoder_session_ms": {"p50": 36.857499957084656, "p95": 47.282500016689305}
+  },
+  "conclusion": "Latency passes the current hard gate, but true WebGPU FP16 numerical parity fails and must not be accepted or hidden by relaxed thresholds."
+}

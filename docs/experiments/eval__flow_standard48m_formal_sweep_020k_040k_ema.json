@@ -1,0 +1,609 @@
+{
+  "schema": "ardy_flow_checkpoint_sweep_v1",
+  "eval_dir": "distill_runs/first_12h_20260714_014643/eval",
+  "rollout_dir": "distill_runs/first_12h_20260714_014643/rollout",
+  "prefix": "flow_standard48m",
+  "nfe": 1,
+  "steps": [
+    20000,
+    40000
+  ],
+  "variants": [
+    "ema"
+  ],
+  "seeds": [
+    20260714,
+    20260715,
+    20260716,
+    20260717,
+    20260718
+  ],
+  "checkpoints": [
+    {
+      "step": 20000,
+      "variants": {
+        "ema": {
+          "static": {
+            "endpoint_total": 0.2801704662851989,
+            "endpoint_root_mse": 0.013177066924981773,
+            "endpoint_body_mse": 0.1587783982977271,
+            "fk_mpjpe_m": 0.12164311110973358,
+            "foot_slide_mps": 0.024826001725159585,
+            "joint_acceleration": 0.01890238549094647,
+            "joint_jerk": 0.03300033637788147,
+            "boundary_joint_jerk": 0.03389873699052259,
+            "root_temporal_total": 0.4901024354621768,
+            "path_error_m": 0.0793005436355409,
+            "future_waypoint_remaining_m": 1.3127025790945177
+          },
+          "rollout_50": {
+            "per_seed": {
+              "20260714": {
+                "waypoint_error_m": 18.77926644027233,
+                "root_drift_mean_m": 18.234670639038086,
+                "root_drift_final_m": 47.773170471191406,
+                "fk_mpjpe_m": 18.27657127380371,
+                "foot_slide_mps": 0.5749213099479675,
+                "joint_seam_mps": 1.3071554242348185,
+                "root_acceleration_p95_ratio": 11.938780512872576,
+                "root_jerk_p95_ratio": 26.50978723341074,
+                "root_high_frequency_ratio": 13.388280952073545,
+                "body_acceleration_p95_ratio": 1.537147087918536,
+                "body_jerk_p95_ratio": 2.955970736932896,
+                "body_high_frequency_ratio": 10.244193462010164,
+                "joint_seam_ratio": 5.091768916715224
+              },
+              "20260715": {
+                "waypoint_error_m": 10.261840216517449,
+                "root_drift_mean_m": 10.109231948852539,
+                "root_drift_final_m": 14.275535583496094,
+                "fk_mpjpe_m": 10.11992073059082,
+                "foot_slide_mps": 0.6240152716636658,
+                "joint_seam_mps": 1.3525377974218251,
+                "root_acceleration_p95_ratio": 12.385894286276343,
+                "root_jerk_p95_ratio": 26.918159940257286,
+                "root_high_frequency_ratio": 14.63520192465512,
+                "body_acceleration_p95_ratio": 1.5424981071755035,
+                "body_jerk_p95_ratio": 2.752192584420848,
+                "body_high_frequency_ratio": 10.287040741459233,
+                "joint_seam_ratio": 4.24341402242874
+              },
+              "20260716": {
+                "waypoint_error_m": 31.113954949378968,
+                "root_drift_mean_m": 30.44386100769043,
+                "root_drift_final_m": 57.406959533691406,
+                "fk_mpjpe_m": 30.48122787475586,
+                "foot_slide_mps": 0.5357033014297485,
+                "joint_seam_mps": 1.3192025508199419,
+                "root_acceleration_p95_ratio": 9.561455284250586,
+                "root_jerk_p95_ratio": 21.864344824660687,
+                "root_high_frequency_ratio": 18.0030917679852,
+                "body_acceleration_p95_ratio": 1.0258915402158448,
+                "body_jerk_p95_ratio": 2.0385344510249404,
+                "body_high_frequency_ratio": 14.078589477174527,
+                "joint_seam_ratio": 3.63132169947749
+              },
+              "20260717": {
+                "waypoint_error_m": 22.164419870376587,
+                "root_drift_mean_m": 21.73687744140625,
+                "root_drift_final_m": 39.51192092895508,
+                "fk_mpjpe_m": 21.77071762084961,
+                "foot_slide_mps": 0.5363297462463379,
+                "joint_seam_mps": 1.3194556418730288,
+                "root_acceleration_p95_ratio": 8.493732000744615,
+                "root_jerk_p95_ratio": 18.813954559149344,
+                "root_high_frequency_ratio": 13.532897332571132,
+                "body_acceleration_p95_ratio": 1.083379378928494,
+                "body_jerk_p95_ratio": 2.0722852916721246,
+                "body_high_frequency_ratio": 13.32654486952542,
+                "joint_seam_ratio": 3.8135826079966453
+              },
+              "20260718": {
+                "waypoint_error_m": 27.0213458943367,
+                "root_drift_mean_m": 26.343032836914062,
+                "root_drift_final_m": 59.7370491027832,
+                "fk_mpjpe_m": 26.37802505493164,
+                "foot_slide_mps": 0.5549414753913879,
+                "joint_seam_mps": 1.3155560700260862,
+                "root_acceleration_p95_ratio": 11.398628711362873,
+                "root_jerk_p95_ratio": 24.755720085832117,
+                "root_high_frequency_ratio": 15.92079585597331,
+                "body_acceleration_p95_ratio": 1.4965759965931813,
+                "body_jerk_p95_ratio": 3.004674329409174,
+                "body_high_frequency_ratio": 13.373988118431017,
+                "joint_seam_ratio": 5.720823194435658
+              }
+            },
+            "aggregate": {
+              "waypoint_error_m": {
+                "mean": 21.868165474176408,
+                "median": 22.164419870376587,
+                "min": 10.261840216517449,
+                "max": 31.113954949378968
+              },
+              "root_drift_mean_m": {
+                "mean": 21.373534774780275,
+                "median": 21.73687744140625,
+                "min": 10.109231948852539,
+                "max": 30.44386100769043
+              },
+              "root_drift_final_m": {
+                "mean": 43.740927124023436,
+                "median": 47.773170471191406,
+                "min": 14.275535583496094,
+                "max": 59.7370491027832
+              },
+              "fk_mpjpe_m": {
+                "mean": 21.405292510986328,
+                "median": 21.77071762084961,
+                "min": 10.11992073059082,
+                "max": 30.48122787475586
+              },
+              "foot_slide_mps": {
+                "mean": 0.5651822209358215,
+                "median": 0.5549414753913879,
+                "min": 0.5357033014297485,
+                "max": 0.6240152716636658
+              },
+              "joint_seam_mps": {
+                "mean": 1.3227814968751401,
+                "median": 1.3192025508199419,
+                "min": 1.3071554242348185,
+                "max": 1.3525377974218251
+              },
+              "root_acceleration_p95_ratio": {
+                "mean": 10.7556981591014,
+                "median": 11.398628711362873,
+                "min": 8.493732000744615,
+                "max": 12.385894286276343
+              },
+              "root_jerk_p95_ratio": {
+                "mean": 23.772393328662037,
+                "median": 24.755720085832117,
+                "min": 18.813954559149344,
+                "max": 26.918159940257286
+              },
+              "root_high_frequency_ratio": {
+                "mean": 15.096053566651662,
+                "median": 14.63520192465512,
+                "min": 13.388280952073545,
+                "max": 18.0030917679852
+              },
+              "body_acceleration_p95_ratio": {
+                "mean": 1.337098422166312,
+                "median": 1.4965759965931813,
+                "min": 1.0258915402158448,
+                "max": 1.5424981071755035
+              },
+              "body_jerk_p95_ratio": {
+                "mean": 2.5647314786919964,
+                "median": 2.752192584420848,
+                "min": 2.0385344510249404,
+                "max": 3.004674329409174
+              },
+              "body_high_frequency_ratio": {
+                "mean": 12.262071333720073,
+                "median": 13.32654486952542,
+                "min": 10.244193462010164,
+                "max": 14.078589477174527
+              },
+              "joint_seam_ratio": {
+                "mean": 4.500182088210751,
+                "median": 4.24341402242874,
+                "min": 3.63132169947749,
+                "max": 5.720823194435658
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "step": 40000,
+      "variants": {
+        "ema": {
+          "static": {
+            "endpoint_total": 0.2018697513267398,
+            "endpoint_root_mse": 0.008787778991973028,
+            "endpoint_body_mse": 0.10632004006765783,
+            "fk_mpjpe_m": 0.09237691410817206,
+            "foot_slide_mps": 0.020422558533027768,
+            "joint_acceleration": 0.015020070626633242,
+            "joint_jerk": 0.02593147527659312,
+            "boundary_joint_jerk": 0.026678132358938456,
+            "root_temporal_total": 0.38734250608831644,
+            "path_error_m": 0.06717843110741609,
+            "future_waypoint_remaining_m": 1.3073361188173294
+          },
+          "rollout_50": {
+            "per_seed": {
+              "20260714": {
+                "waypoint_error_m": 13.984672945737838,
+                "root_drift_mean_m": 13.53552532196045,
+                "root_drift_final_m": 40.1096076965332,
+                "fk_mpjpe_m": 13.550614356994629,
+                "foot_slide_mps": 0.5040499567985535,
+                "joint_seam_mps": 1.1168621960951357,
+                "root_acceleration_p95_ratio": 9.835306685844397,
+                "root_jerk_p95_ratio": 21.85211088585251,
+                "root_high_frequency_ratio": 12.967674785402508,
+                "body_acceleration_p95_ratio": 1.326950653268,
+                "body_jerk_p95_ratio": 2.5420054737975244,
+                "body_high_frequency_ratio": 8.340010811341665,
+                "joint_seam_ratio": 4.350518378031983
+              },
+              "20260715": {
+                "waypoint_error_m": 11.513961318135262,
+                "root_drift_mean_m": 11.407073974609375,
+                "root_drift_final_m": 12.46904182434082,
+                "fk_mpjpe_m": 11.421894073486328,
+                "foot_slide_mps": 0.5302484035491943,
+                "joint_seam_mps": 1.1652769111857122,
+                "root_acceleration_p95_ratio": 9.780880406258893,
+                "root_jerk_p95_ratio": 22.515894987805275,
+                "root_high_frequency_ratio": 14.410406371107241,
+                "body_acceleration_p95_ratio": 1.2380157832899437,
+                "body_jerk_p95_ratio": 2.1419796564558764,
+                "body_high_frequency_ratio": 8.294167611249097,
+                "joint_seam_ratio": 3.655907286264404
+              },
+              "20260716": {
+                "waypoint_error_m": 31.89762485742569,
+                "root_drift_mean_m": 31.2098445892334,
+                "root_drift_final_m": 59.8095703125,
+                "fk_mpjpe_m": 31.252059936523438,
+                "foot_slide_mps": 0.4795458912849426,
+                "joint_seam_mps": 1.2121703831516966,
+                "root_acceleration_p95_ratio": 8.714198951905695,
+                "root_jerk_p95_ratio": 19.784402514145686,
+                "root_high_frequency_ratio": 18.113037769951774,
+                "body_acceleration_p95_ratio": 0.9216621726644819,
+                "body_jerk_p95_ratio": 1.8512819544937784,
+                "body_high_frequency_ratio": 11.806763563894673,
+                "joint_seam_ratio": 3.3366986968649015
+              },
+              "20260717": {
+                "waypoint_error_m": 18.46786908149719,
+                "root_drift_mean_m": 18.118083953857422,
+                "root_drift_final_m": 35.497745513916016,
+                "fk_mpjpe_m": 18.161582946777344,
+                "foot_slide_mps": 0.4837491810321808,
+                "joint_seam_mps": 1.1790692234525875,
+                "root_acceleration_p95_ratio": 7.32954984110472,
+                "root_jerk_p95_ratio": 16.28100168622733,
+                "root_high_frequency_ratio": 13.478961519918109,
+                "body_acceleration_p95_ratio": 0.9490162187487543,
+                "body_jerk_p95_ratio": 1.7867006993004533,
+                "body_high_frequency_ratio": 10.202708310788429,
+                "joint_seam_ratio": 3.407828346030196
+              },
+              "20260718": {
+                "waypoint_error_m": 20.71286757349968,
+                "root_drift_mean_m": 20.157928466796875,
+                "root_drift_final_m": 53.04863739013672,
+                "fk_mpjpe_m": 20.197378158569336,
+                "foot_slide_mps": 0.48602598905563354,
+                "joint_seam_mps": 1.0588893148363854,
+                "root_acceleration_p95_ratio": 9.211414384369851,
+                "root_jerk_p95_ratio": 20.370028170884854,
+                "root_high_frequency_ratio": 15.693962351501064,
+                "body_acceleration_p95_ratio": 1.18512040891572,
+                "body_jerk_p95_ratio": 2.418972850454603,
+                "body_high_frequency_ratio": 11.946478772674073,
+                "joint_seam_ratio": 4.6046836293599505
+              }
+            },
+            "aggregate": {
+              "waypoint_error_m": {
+                "mean": 19.315399155259133,
+                "median": 18.46786908149719,
+                "min": 11.513961318135262,
+                "max": 31.89762485742569
+              },
+              "root_drift_mean_m": {
+                "mean": 18.885691261291505,
+                "median": 18.118083953857422,
+                "min": 11.407073974609375,
+                "max": 31.2098445892334
+              },
+              "root_drift_final_m": {
+                "mean": 40.18692054748535,
+                "median": 40.1096076965332,
+                "min": 12.46904182434082,
+                "max": 59.8095703125
+              },
+              "fk_mpjpe_m": {
+                "mean": 18.916705894470216,
+                "median": 18.161582946777344,
+                "min": 11.421894073486328,
+                "max": 31.252059936523438
+              },
+              "foot_slide_mps": {
+                "mean": 0.496723884344101,
+                "median": 0.48602598905563354,
+                "min": 0.4795458912849426,
+                "max": 0.5302484035491943
+              },
+              "joint_seam_mps": {
+                "mean": 1.1464536057443033,
+                "median": 1.1652769111857122,
+                "min": 1.0588893148363854,
+                "max": 1.2121703831516966
+              },
+              "root_acceleration_p95_ratio": {
+                "mean": 8.974270053896712,
+                "median": 9.211414384369851,
+                "min": 7.32954984110472,
+                "max": 9.835306685844397
+              },
+              "root_jerk_p95_ratio": {
+                "mean": 20.16068764898313,
+                "median": 20.370028170884854,
+                "min": 16.28100168622733,
+                "max": 22.515894987805275
+              },
+              "root_high_frequency_ratio": {
+                "mean": 14.93280855957614,
+                "median": 14.410406371107241,
+                "min": 12.967674785402508,
+                "max": 18.113037769951774
+              },
+              "body_acceleration_p95_ratio": {
+                "mean": 1.12415304737738,
+                "median": 1.18512040891572,
+                "min": 0.9216621726644819,
+                "max": 1.326950653268
+              },
+              "body_jerk_p95_ratio": {
+                "mean": 2.1481881269004472,
+                "median": 2.1419796564558764,
+                "min": 1.7867006993004533,
+                "max": 2.5420054737975244
+              },
+              "body_high_frequency_ratio": {
+                "mean": 10.118025813989586,
+                "median": 10.202708310788429,
+                "min": 8.294167611249097,
+                "max": 11.946478772674073
+              },
+              "joint_seam_ratio": {
+                "mean": 3.871127267310287,
+                "median": 3.655907286264404,
+                "min": 3.3366986968649015,
+                "max": 4.6046836293599505
+              }
+            }
+          }
+        }
+      },
+      "ema_delta_percent_vs_previous": {
+        "static": {
+          "endpoint_total": -27.947526374444152,
+          "endpoint_root_mse": -33.31005266951558,
+          "endpoint_body_mse": -33.03872490998684,
+          "fk_mpjpe_m": -24.059066505756043,
+          "foot_slide_mps": -17.737222613938698,
+          "joint_acceleration": -20.538756159494852,
+          "joint_jerk": -21.420572870361,
+          "boundary_joint_jerk": -21.300512268651406,
+          "root_temporal_total": -20.967030958937304,
+          "path_error_m": -15.286291836581967,
+          "future_waypoint_remaining_m": -0.40881006578733503
+        },
+        "rollout_50_mean": {
+          "waypoint_error_m": -11.673436081923628,
+          "root_drift_mean_m": -11.63983187481138,
+          "root_drift_final_m": -8.125128592864584,
+          "fk_mpjpe_m": -11.626034146643116,
+          "foot_slide_mps": -12.112613252123905,
+          "joint_seam_mps": -13.330084488434657,
+          "root_acceleration_p95_ratio": -16.56264501711825,
+          "root_jerk_p95_ratio": -15.19285681397642,
+          "root_high_frequency_ratio": -1.0813753830083317,
+          "body_acceleration_p95_ratio": -15.925931199883303,
+          "body_jerk_p95_ratio": -16.24120713034585,
+          "body_high_frequency_ratio": -17.485182245143772,
+          "joint_seam_ratio": -13.978430396148111
+        },
+        "rollout_50_paired": {
+          "per_seed": {
+            "20260714": {
+              "waypoint_error_m": -25.531314068010868,
+              "root_drift_mean_m": -25.77038768672558,
+              "root_drift_final_m": -16.041562029632406,
+              "fk_mpjpe_m": -25.85800611071356,
+              "foot_slide_mps": -12.32713971862135,
+              "joint_seam_mps": -14.557811918278684,
+              "root_acceleration_p95_ratio": -17.618833219692586,
+              "root_jerk_p95_ratio": -17.569648170122164,
+              "root_high_frequency_ratio": -3.141599494189695,
+              "body_acceleration_p95_ratio": -13.674451606005045,
+              "body_jerk_p95_ratio": -14.004376226163195,
+              "body_high_frequency_ratio": -18.587921613644063,
+              "joint_seam_ratio": -14.557819704854813
+            },
+            "20260715": {
+              "waypoint_error_m": 12.201720892149549,
+              "root_drift_mean_m": 12.838186247216822,
+              "root_drift_final_m": -12.654472741770583,
+              "fk_mpjpe_m": 12.865450012467594,
+              "foot_slide_mps": -15.026373932240922,
+              "joint_seam_mps": -13.8451499538915,
+              "root_acceleration_p95_ratio": -21.032101677985604,
+              "root_jerk_p95_ratio": -16.354256614205752,
+              "root_high_frequency_ratio": -1.5359921557978606,
+              "body_acceleration_p95_ratio": -19.739558996484153,
+              "body_jerk_p95_ratio": -22.171883298398633,
+              "body_high_frequency_ratio": -19.372657115844603,
+              "joint_seam_ratio": -13.845142921691
+            },
+            "20260716": {
+              "waypoint_error_m": 2.5187087572817957,
+              "root_drift_mean_m": 2.5160526825078966,
+              "root_drift_final_m": 4.185225621291666,
+              "fk_mpjpe_m": 2.5288747058840544,
+              "foot_slide_mps": -10.482931502368265,
+              "joint_seam_mps": -8.113399083538775,
+              "root_acceleration_p95_ratio": -8.861165033532837,
+              "root_jerk_p95_ratio": -9.512941399318976,
+              "root_high_frequency_ratio": 0.6107062241502925,
+              "body_acceleration_p95_ratio": -10.15988176775815,
+              "body_jerk_p95_ratio": -9.185642971940677,
+              "body_high_frequency_ratio": -16.136743790726626,
+              "joint_seam_ratio": -8.11338204089661
+            },
+            "20260717": {
+              "waypoint_error_m": -16.677859427396736,
+              "root_drift_mean_m": -16.64817542125643,
+              "root_drift_final_m": -10.15940334122657,
+              "fk_mpjpe_m": -16.57793159108284,
+              "foot_slide_mps": -9.80377567758598,
+              "joint_seam_mps": -10.63972247078775,
+              "root_acceleration_p95_ratio": -13.706367937413555,
+              "root_jerk_p95_ratio": -13.463160363009507,
+              "root_high_frequency_ratio": -0.3985533276987918,
+              "body_acceleration_p95_ratio": -12.402226107776793,
+              "body_jerk_p95_ratio": -13.78114266019972,
+              "body_high_frequency_ratio": -23.440708670710652,
+              "joint_seam_ratio": -10.639713457776667
+            },
+            "20260718": {
+              "waypoint_error_m": -23.346277219149147,
+              "root_drift_mean_m": -23.479089930184884,
+              "root_drift_final_m": -11.19642133835309,
+              "fk_mpjpe_m": -23.431044907612485,
+              "foot_slide_mps": -12.418514274347547,
+              "joint_seam_mps": -19.510134234309863,
+              "root_acceleration_p95_ratio": -19.18839873091637,
+              "root_jerk_p95_ratio": -17.71587293660356,
+              "root_high_frequency_ratio": -1.424762345577979,
+              "body_acceleration_p95_ratio": -20.811210949959214,
+              "body_jerk_p95_ratio": -19.493010381252894,
+              "body_high_frequency_ratio": -10.673774592259866,
+              "joint_seam_ratio": -19.51012165803896
+            }
+          },
+          "aggregate": {
+            "waypoint_error_m": {
+              "mean_delta_percent": -10.167004213025082,
+              "median_delta_percent": -16.677859427396736,
+              "best_delta_percent": -25.531314068010868,
+              "worst_delta_percent": 12.201720892149549,
+              "improved_count": 3,
+              "regressed_count": 2,
+              "unchanged_count": 0
+            },
+            "root_drift_mean_m": {
+              "mean_delta_percent": -10.108682821688436,
+              "median_delta_percent": -16.64817542125643,
+              "best_delta_percent": -25.77038768672558,
+              "worst_delta_percent": 12.838186247216822,
+              "improved_count": 3,
+              "regressed_count": 2,
+              "unchanged_count": 0
+            },
+            "root_drift_final_m": {
+              "mean_delta_percent": -9.173326765938196,
+              "median_delta_percent": -11.19642133835309,
+              "best_delta_percent": -16.041562029632406,
+              "worst_delta_percent": 4.185225621291666,
+              "improved_count": 4,
+              "regressed_count": 1,
+              "unchanged_count": 0
+            },
+            "fk_mpjpe_m": {
+              "mean_delta_percent": -10.094531578211448,
+              "median_delta_percent": -16.57793159108284,
+              "best_delta_percent": -25.85800611071356,
+              "worst_delta_percent": 12.865450012467594,
+              "improved_count": 3,
+              "regressed_count": 2,
+              "unchanged_count": 0
+            },
+            "foot_slide_mps": {
+              "mean_delta_percent": -12.011747021032813,
+              "median_delta_percent": -12.32713971862135,
+              "best_delta_percent": -15.026373932240922,
+              "worst_delta_percent": -9.80377567758598,
+              "improved_count": 5,
+              "regressed_count": 0,
+              "unchanged_count": 0
+            },
+            "joint_seam_mps": {
+              "mean_delta_percent": -13.333243532161314,
+              "median_delta_percent": -13.8451499538915,
+              "best_delta_percent": -19.510134234309863,
+              "worst_delta_percent": -8.113399083538775,
+              "improved_count": 5,
+              "regressed_count": 0,
+              "unchanged_count": 0
+            },
+            "root_acceleration_p95_ratio": {
+              "mean_delta_percent": -16.081373319908188,
+              "median_delta_percent": -17.618833219692586,
+              "best_delta_percent": -21.032101677985604,
+              "worst_delta_percent": -8.861165033532837,
+              "improved_count": 5,
+              "regressed_count": 0,
+              "unchanged_count": 0
+            },
+            "root_jerk_p95_ratio": {
+              "mean_delta_percent": -14.923175896651992,
+              "median_delta_percent": -16.354256614205752,
+              "best_delta_percent": -17.71587293660356,
+              "worst_delta_percent": -9.512941399318976,
+              "improved_count": 5,
+              "regressed_count": 0,
+              "unchanged_count": 0
+            },
+            "root_high_frequency_ratio": {
+              "mean_delta_percent": -1.1780402198228068,
+              "median_delta_percent": -1.424762345577979,
+              "best_delta_percent": -3.141599494189695,
+              "worst_delta_percent": 0.6107062241502925,
+              "improved_count": 4,
+              "regressed_count": 1,
+              "unchanged_count": 0
+            },
+            "body_acceleration_p95_ratio": {
+              "mean_delta_percent": -15.357465885596671,
+              "median_delta_percent": -13.674451606005045,
+              "best_delta_percent": -20.811210949959214,
+              "worst_delta_percent": -10.15988176775815,
+              "improved_count": 5,
+              "regressed_count": 0,
+              "unchanged_count": 0
+            },
+            "body_jerk_p95_ratio": {
+              "mean_delta_percent": -15.727211107591023,
+              "median_delta_percent": -14.004376226163195,
+              "best_delta_percent": -22.171883298398633,
+              "worst_delta_percent": -9.185642971940677,
+              "improved_count": 5,
+              "regressed_count": 0,
+              "unchanged_count": 0
+            },
+            "body_high_frequency_ratio": {
+              "mean_delta_percent": -17.64236115663716,
+              "median_delta_percent": -18.587921613644063,
+              "best_delta_percent": -23.440708670710652,
+              "worst_delta_percent": -10.673774592259866,
+              "improved_count": 5,
+              "regressed_count": 0,
+              "unchanged_count": 0
+            },
+            "joint_seam_ratio": {
+              "mean_delta_percent": -13.33323595665161,
+              "median_delta_percent": -13.845142921691,
+              "best_delta_percent": -19.51012165803896,
+              "worst_delta_percent": -8.11338204089661,
+              "improved_count": 5,
+              "regressed_count": 0,
+              "unchanged_count": 0
+            }
+          }
+        }
+      }
+    }
+  ]
+}

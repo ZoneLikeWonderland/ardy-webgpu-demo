@@ -1,0 +1,9 @@
+ARDY WebGPU Student Demo - experimental research pilot
+
+Licensed by NVIDIA Corporation under the NVIDIA Open Model License
+
+The deployed student is derived from NVIDIA ARDY-Core-RP-20FPS-Horizon40.
+Model terms: ./licenses/NVIDIA-OPEN-MODEL-AGREEMENT.txt
+ONNX Runtime Web license: ./licenses/ONNXRUNTIME-MIT.txt
+Source and research record: https://github.com/ZoneLikeWonderland/ardy-webgpu-demo
+

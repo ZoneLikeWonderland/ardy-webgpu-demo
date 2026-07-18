@@ -1,0 +1,278 @@
+{
+  "schema": "ardy_browser_prompt_features_v1",
+  "encoder": "FLUX.2_Qwen3_precomputed",
+  "storage_dtype": "float16_le",
+  "feature_dim": 7680,
+  "count": 33,
+  "compression": "none",
+  "default_prompt_id": 1,
+  "feature_url": "infinite_demo/prompt_features.fp16.bin",
+  "size_bytes": 506880,
+  "sha256": "f5cc9cf49abe70197901ea60770f8831803fca849cae63235defd0e9ffd2d711",
+  "entries": [
+    {
+      "index": 0,
+      "prompt_id": 0,
+      "text": "",
+      "family": "unconditional",
+      "group": "unconditional",
+      "source": "unconditional"
+    },
+    {
+      "index": 1,
+      "prompt_id": 1,
+      "text": "A person is walking.",
+      "family": "walk_forward",
+      "group": "locomotion",
+      "source": "official_ardy_preset"
+    },
+    {
+      "index": 2,
+      "prompt_id": 2,
+      "text": "A person jumps backwards.",
+      "family": "jump_hop",
+      "group": "dynamic",
+      "source": "official_ardy_preset"
+    },
+    {
+      "index": 3,
+      "prompt_id": 3,
+      "text": "A person side steps to the right.",
+      "family": "lateral",
+      "group": "locomotion",
+      "source": "official_ardy_preset"
+    },
+    {
+      "index": 4,
+      "prompt_id": 4,
+      "text": "A person is walking backwards.",
+      "family": "backward",
+      "group": "locomotion",
+      "source": "official_ardy_preset"
+    },
+    {
+      "index": 5,
+      "prompt_id": 5,
+      "text": "A person is kicking with their right leg.",
+      "family": "combat",
+      "group": "dynamic",
+      "source": "official_ardy_preset"
+    },
+    {
+      "index": 6,
+      "prompt_id": 6,
+      "text": "A person is standing.",
+      "family": "idle_stance",
+      "group": "stationary",
+      "source": "official_ardy_preset"
+    },
+    {
+      "index": 7,
+      "prompt_id": 7,
+      "text": "A young lady walks forward elegantly.",
+      "family": "walk_forward",
+      "group": "locomotion",
+      "source": "official_ardy_preset"
+    },
+    {
+      "index": 8,
+      "prompt_id": 8,
+      "text": "A person bows down and then stands upright.",
+      "family": "gesture",
+      "group": "expressive",
+      "source": "official_ardy_preset"
+    },
+    {
+      "index": 9,
+      "prompt_id": 9,
+      "text": "A ballet dancer, performs a forward, turn joining feet, in a repeating loop",
+      "family": "dance",
+      "group": "expressive",
+      "source": "official_ardy_preset"
+    },
+    {
+      "index": 10,
+      "prompt_id": 10,
+      "text": "a performer gives high bow, with arms to the side, right leg crossed behind the left",
+      "family": "gesture",
+      "group": "expressive",
+      "source": "official_ardy_preset"
+    },
+    {
+      "index": 11,
+      "prompt_id": 1186,
+      "text": "Someone is bounding forward with athletic form across an open space.",
+      "family": "run_forward",
+      "group": "locomotion",
+      "source": "template_v1"
+    },
+    {
+      "index": 12,
+      "prompt_id": 1187,
+      "text": "A trained performer is running with quick strides with controlled momentum in one continuous burst.",
+      "family": "run_forward",
+      "group": "locomotion",
+      "source": "template_v1"
+    },
+    {
+      "index": 13,
+      "prompt_id": 1773,
+      "text": "A performer is moving backward cautiously without turning around through a clear area.",
+      "family": "backward",
+      "group": "locomotion",
+      "source": "template_v1"
+    },
+    {
+      "index": 14,
+      "prompt_id": 2235,
+      "text": "A relaxed person is moving left while facing forward while keeping the torso forward as if avoiding an obstacle.",
+      "family": "lateral",
+      "group": "locomotion",
+      "source": "template_v1"
+    },
+    {
+      "index": 15,
+      "prompt_id": 2738,
+      "text": "A dancer is making a wide turn with measured steps over level ground.",
+      "family": "turning",
+      "group": "locomotion",
+      "source": "template_v1"
+    },
+    {
+      "index": 16,
+      "prompt_id": 2739,
+      "text": "A dancer is turning in place with a small turning radius while looking in the new direction.",
+      "family": "turning",
+      "group": "locomotion",
+      "source": "template_v1"
+    },
+    {
+      "index": 17,
+      "prompt_id": 3241,
+      "text": "A human figure is jogging along a gentle arc briskly over level ground.",
+      "family": "curved_route",
+      "group": "locomotion",
+      "source": "template_v1"
+    },
+    {
+      "index": 18,
+      "prompt_id": 3242,
+      "text": "An athlete is jogging along a gentle arc with light footwork while looking along the route.",
+      "family": "curved_route",
+      "group": "locomotion",
+      "source": "template_v1"
+    },
+    {
+      "index": 19,
+      "prompt_id": 3577,
+      "text": "Someone is decelerating from a run into a walk with controlled balance after a short distance.",
+      "family": "start_stop",
+      "group": "transition",
+      "source": "template_v1"
+    },
+    {
+      "index": 20,
+      "prompt_id": 3578,
+      "text": "Someone is accelerating from walking into running quickly on level ground.",
+      "family": "start_stop",
+      "group": "transition",
+      "source": "template_v1"
+    },
+    {
+      "index": 21,
+      "prompt_id": 4206,
+      "text": "A trained performer is resting in place with balanced weight as if listening to someone.",
+      "family": "idle_stance",
+      "group": "stationary",
+      "source": "template_v1"
+    },
+    {
+      "index": 22,
+      "prompt_id": 4709,
+      "text": "A person is squatting and standing again slowly before returning upright.",
+      "family": "crouch_floor",
+      "group": "low_motion",
+      "source": "template_v1"
+    },
+    {
+      "index": 23,
+      "prompt_id": 4710,
+      "text": "A young person is squatting and standing again smoothly as part of an exercise.",
+      "family": "crouch_floor",
+      "group": "low_motion",
+      "source": "template_v1"
+    },
+    {
+      "index": 24,
+      "prompt_id": 5045,
+      "text": "A relaxed person is skipping forward with controlled balance in an open space.",
+      "family": "jump_hop",
+      "group": "dynamic",
+      "source": "template_v1"
+    },
+    {
+      "index": 25,
+      "prompt_id": 5674,
+      "text": "An energetic person is spinning and joining the feet gracefully over a small area.",
+      "family": "dance",
+      "group": "expressive",
+      "source": "template_v1"
+    },
+    {
+      "index": 26,
+      "prompt_id": 6848,
+      "text": "A trained performer is performing a side kick quickly against an imaginary opponent.",
+      "family": "combat",
+      "group": "dynamic",
+      "source": "template_v1"
+    },
+    {
+      "index": 27,
+      "prompt_id": 7268,
+      "text": "An adult is doing rapid agility steps with precise timing against an imaginary target.",
+      "family": "sport",
+      "group": "dynamic",
+      "source": "template_v1"
+    },
+    {
+      "index": 28,
+      "prompt_id": 7269,
+      "text": "Someone is practicing a golf swing with a full follow-through while facing forward.",
+      "family": "sport",
+      "group": "dynamic",
+      "source": "template_v1"
+    },
+    {
+      "index": 29,
+      "prompt_id": 7604,
+      "text": "A human figure is sitting down on an imaginary chair without rushing and then relaxing.",
+      "family": "everyday",
+      "group": "activity",
+      "source": "template_v1"
+    },
+    {
+      "index": 30,
+      "prompt_id": 7605,
+      "text": "An energetic person is placing an object on a high shelf with realistic weight shifts as part of a normal routine.",
+      "family": "everyday",
+      "group": "activity",
+      "source": "template_v1"
+    },
+    {
+      "index": 31,
+      "prompt_id": 7940,
+      "text": "Someone is holding a deep squat without stepping away with small natural corrections.",
+      "family": "balance_pose",
+      "group": "stationary",
+      "source": "template_v1"
+    },
+    {
+      "index": 32,
+      "prompt_id": 7941,
+      "text": "A human figure is standing with arms extended with minimal movement as part of a warm-up.",
+      "family": "balance_pose",
+      "group": "stationary",
+      "source": "template_v1"
+    }
+  ]
+}

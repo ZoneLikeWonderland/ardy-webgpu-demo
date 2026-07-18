@@ -1,0 +1,206 @@
+{
+  "schema": "ardy_dmd_ladd_endpoint_gradient_groups_v1",
+  "root": "distill_runs/dmd_ladd_u05_multideep_gradient_groups_g350_joint22500_20260716",
+  "steps": [
+    310,
+    320,
+    330,
+    340,
+    350
+  ],
+  "components": {
+    "dmd": {
+      "raw_endpoint_gradient_rms": {
+        "count": 5,
+        "mean": 2.811627091432456e-05,
+        "std_population": 6.292198568881951e-07,
+        "min": 2.7032339858124033e-05,
+        "max": 2.897874583140947e-05
+      },
+      "weighted_endpoint_gradient_rms": {
+        "count": 5,
+        "mean": 2.811627091432456e-05,
+        "std_population": 6.292198568881951e-07,
+        "min": 2.7032339858124033e-05,
+        "max": 2.897874583140947e-05
+      },
+      "weighted_to_total_rms_ratio": {
+        "count": 5,
+        "mean": 0.32023073434829713,
+        "std_population": 0.013693378554363528,
+        "min": 0.29504266381263733,
+        "max": 0.33352115750312805
+      },
+      "weighted_vs_total_cosine": {
+        "count": 5,
+        "mean": 0.3227489709854126,
+        "std_population": 0.01376910730986792,
+        "min": 0.2994118630886078,
+        "max": 0.3406260013580322
+      }
+    },
+    "adversarial": {
+      "raw_endpoint_gradient_rms": {
+        "count": 5,
+        "mean": 3.145086120639462e-05,
+        "std_population": 1.54392776414814e-05,
+        "min": 1.6958716514636762e-05,
+        "max": 5.723387948819436e-05
+      },
+      "weighted_endpoint_gradient_rms": {
+        "count": 5,
+        "mean": 3.146086271499371e-08,
+        "std_population": 1.545111244478261e-08,
+        "min": 1.6965419291636863e-08,
+        "max": 5.726525387217407e-08
+      },
+      "weighted_to_total_rms_ratio": {
+        "count": 5,
+        "mean": 0.000361100843292661,
+        "std_population": 0.00018308624468433521,
+        "min": 0.00019103694648947567,
+        "max": 0.0006657423218712211
+      },
+      "weighted_vs_total_cosine": {
+        "count": 5,
+        "mean": 0.001283440925180912,
+        "std_population": 0.007869310686165948,
+        "min": -0.013693505898118019,
+        "max": 0.007126388605684042
+      }
+    },
+    "paired_fsq": {
+      "raw_endpoint_gradient_rms": {
+        "count": 5,
+        "mean": 7.391297003778163e-06,
+        "std_population": 4.309683226090465e-07,
+        "min": 6.869152912258869e-06,
+        "max": 7.847878805478103e-06
+      },
+      "weighted_endpoint_gradient_rms": {
+        "count": 5,
+        "mean": 7.391297003778163e-06,
+        "std_population": 4.309683226090465e-07,
+        "min": 6.869152912258869e-06,
+        "max": 7.847878805478103e-06
+      },
+      "weighted_to_total_rms_ratio": {
+        "count": 5,
+        "mean": 0.08421996831893921,
+        "std_population": 0.006503179550674112,
+        "min": 0.07491843402385712,
+        "max": 0.09071262180805206
+      },
+      "weighted_vs_total_cosine": {
+        "count": 5,
+        "mean": 0.13048125803470612,
+        "std_population": 0.010302448869408776,
+        "min": 0.12169961631298065,
+        "max": 0.15052443742752075
+      }
+    },
+    "control_physics": {
+      "raw_endpoint_gradient_rms": {
+        "count": 5,
+        "mean": 8.252667321357876e-05,
+        "std_population": 2.4015702162381653e-06,
+        "min": 8.037790394155309e-05,
+        "max": 8.6917047156021e-05
+      },
+      "weighted_endpoint_gradient_rms": {
+        "count": 5,
+        "mean": 8.252667321357876e-05,
+        "std_population": 2.4015702162381653e-06,
+        "min": 8.037790394155309e-05,
+        "max": 8.6917047156021e-05
+      },
+      "weighted_to_total_rms_ratio": {
+        "count": 5,
+        "mean": 0.9385042905807495,
+        "std_population": 0.005569815932843269,
+        "min": 0.9313657283782959,
+        "max": 0.9477177858352661
+      },
+      "weighted_vs_total_cosine": {
+        "count": 5,
+        "mean": 0.9424216389656067,
+        "std_population": 0.005388903383160665,
+        "min": 0.9354206323623657,
+        "max": 0.951319694519043
+      }
+    }
+  },
+  "pairwise_raw_endpoint_cosine": {
+    "dmd_vs_adversarial": {
+      "count": 5,
+      "mean": 0.007684087741654366,
+      "std_population": 0.006052609493033674,
+      "min": 0.0004320795997045934,
+      "max": 0.018643999472260475
+    },
+    "dmd_vs_paired_fsq": {
+      "count": 5,
+      "mean": 0.01874432312324643,
+      "std_population": 0.030900620118233364,
+      "min": -0.012812798842787743,
+      "max": 0.06616724282503128
+    },
+    "dmd_vs_control_physics": {
+      "count": 5,
+      "mean": 0.0010936186416074633,
+      "std_population": 0.0005178158312992264,
+      "min": 0.0005464649293571711,
+      "max": 0.0019390214001759887
+    },
+    "adversarial_vs_paired_fsq": {
+      "count": 5,
+      "mean": -0.0029890316538512705,
+      "std_population": 0.003019295890636155,
+      "min": -0.005947173107415438,
+      "max": 0.002334688790142536
+    },
+    "adversarial_vs_control_physics": {
+      "count": 5,
+      "mean": -0.0017871445510536433,
+      "std_population": 0.008263638108406229,
+      "min": -0.017582817003130913,
+      "max": 0.006267763674259186
+    },
+    "paired_fsq_vs_control_physics": {
+      "count": 5,
+      "mean": 0.04274524748325348,
+      "std_population": 0.0017037814172465844,
+      "min": 0.04096425697207451,
+      "max": 0.04557136073708534
+    }
+  },
+  "total_endpoint_gradient_rms": {
+    "count": 5,
+    "mean": 8.791835280135274e-05,
+    "std_population": 2.074929533609815e-06,
+    "min": 8.5887273598928e-05,
+    "max": 9.17038123589009e-05
+  },
+  "component_sum_relative_reconstruction_error": {
+    "count": 5,
+    "mean": 4.217739757450545e-08,
+    "std_population": 7.381221253817976e-10,
+    "min": 4.142037823839928e-08,
+    "max": 4.3390457449277164e-08
+  },
+  "generator_preclip_parameter_gradient_norm": {
+    "count": 5,
+    "mean": 4.660826587677002,
+    "std_population": 0.6280358473216635,
+    "min": 3.824354648590088,
+    "max": 5.621891975402832
+  },
+  "effective_global_clip_scale": {
+    "count": 5,
+    "mean": 0.0021848648603336775,
+    "std_population": 0.0002938309982668598,
+    "min": 0.0017787606100850876,
+    "max": 0.002614820255670239
+  },
+  "note": "Four weighted scalar groups reconstruct the actual BF16 total endpoint gradient. Diagnostics use autograd.grad with retain_graph and leave the normal distributed backward/optimizer trajectory unchanged. Ratios are endpoint-space measurements, not parameter-space norms."
+}

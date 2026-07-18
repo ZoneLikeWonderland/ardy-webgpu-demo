@@ -1,0 +1,18 @@
+ARDY WebGPU Student Demo
+Copyright 2026 ZoneLikeWonderland and contributors
+
+This repository contains software derived from NVIDIA ARDY and a distilled
+student model derived from the ARDY-Core-RP-20FPS-Horizon40 checkpoint.
+
+Licensed by NVIDIA Corporation under the NVIDIA Open Model License
+
+The original ARDY code is Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES
+and is distributed under Apache-2.0. See LICENSE and LICENSES/.
+
+Text-conditioning features were precomputed with the Qwen text encoder shipped
+with FLUX.2-klein-4B. No Qwen or Llama text-encoder weights are shipped in this
+repository or downloaded by the browser demo.
+
+The browser runtime vendors Microsoft ONNX Runtime Web 1.27.0. See
+LICENSES/ONNXRUNTIME-MIT.txt and LICENSES/ONNXRUNTIME-THIRD-PARTY-NOTICES.txt.
+

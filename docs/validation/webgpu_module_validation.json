@@ -1,0 +1,69 @@
+{
+  "passed": true,
+  "timestamp_date": "2026-07-14",
+  "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36 Edg/149.0.0.0",
+  "adapter": {
+    "vendor": "nvidia",
+    "architecture": "ampere",
+    "shader_f16": true
+  },
+  "precision": "fp32",
+  "nfe": 1,
+  "runs_per_module": 20,
+  "modules": {
+    "encoder": {
+      "job_id": "c083e3b2c47b4e7e9c172c3976e533b2",
+      "passed": true,
+      "session_create_ms": 1023.95,
+      "warmup_ms": [39.46, 14.365, 14.77],
+      "inference_ms": {
+        "mean": 14.075,
+        "p50": 14.16,
+        "p95": 16.121,
+        "min": 10.225,
+        "max": 17.655
+      },
+      "max_abs_error": 1.5497207641601562e-6,
+      "mean_abs_error": 3.728055162355304e-7,
+      "cosine_similarity": 0.9999999999997322
+    },
+    "flow": {
+      "job_id": "ec89b1aa74a44e5d8bdaf7c3f7c63000",
+      "passed": true,
+      "session_create_ms": 3577.81,
+      "warmup_ms": [144.57, 60.63, 61.805],
+      "inference_ms": {
+        "mean": 65.406,
+        "p50": 64.39,
+        "p95": 77.036,
+        "min": 58.05,
+        "max": 88.07
+      },
+      "max_abs_error": 3.4570693969726562e-6,
+      "mean_abs_error": 5.438118367581754e-7,
+      "cosine_similarity": 0.9999999999994318
+    },
+    "decoder": {
+      "job_id": "624fc619ad7c4486a79267069dafb680",
+      "passed": true,
+      "session_create_ms": 1260.115,
+      "warmup_ms": [77.89, 37.2, 32.995],
+      "inference_ms": {
+        "mean": 36.923,
+        "p50": 33.613,
+        "p95": 56.985,
+        "min": 31.81,
+        "max": 70.95
+      },
+      "max_abs_error": 7.62939453125e-6,
+      "mean_abs_error": 4.768804842410805e-7,
+      "cosine_similarity": 0.999999999999603
+    }
+  },
+  "independent_stage_sums_ms": {
+    "p50": 112.163,
+    "p95": 150.142,
+    "session_create": 5861.875,
+    "note": "Independent module timings are useful for budgeting but are not a substitute for the foreground full-page end-to-end benchmark."
+  }
+}

@@ -1,0 +1,296 @@
+{
+  "passed": false,
+  "provider": "CPUExecutionProvider",
+  "precision": "fp16",
+  "nfe": 1,
+  "comparisons": {
+    "initial_clean": {
+      "all_finite": true,
+      "max_abs_error": 0.01513671875,
+      "mean_abs_error": 0.00246836688067462,
+      "p95_abs_error": 0.0068359375,
+      "p99_abs_error": 0.009765625,
+      "fraction_abs_error_gt_0_01": 0.008783783783783784,
+      "cosine_similarity": 0.9999923722066761
+    },
+    "initial_clean_vs_pytorch_fp32": {
+      "all_finite": true,
+      "max_abs_error": 0.007096767425537109,
+      "mean_abs_error": 0.0012435840895852527,
+      "p95_abs_error": 0.0033684566617012022,
+      "p99_abs_error": 0.004562689065933228,
+      "fraction_abs_error_gt_0_01": 0.0,
+      "cosine_similarity": 0.9999981758496866
+    },
+    "initial_global_root": {
+      "all_finite": true,
+      "max_abs_error": 0.001953139901161194,
+      "mean_abs_error": 0.0005108610540628433,
+      "p95_abs_error": 0.001953125,
+      "p99_abs_error": 0.001953125,
+      "fraction_abs_error_gt_0_01": 0.0,
+      "cosine_similarity": 0.9999995514961301
+    },
+    "initial_decoder_latent": {
+      "all_finite": true,
+      "max_abs_error": 0.13198578357696533,
+      "mean_abs_error": 0.0029015892015939408,
+      "p95_abs_error": 0.0,
+      "p99_abs_error": 0.1023798543214798,
+      "fraction_abs_error_gt_0_01": 0.02911931818181818,
+      "cosine_similarity": 0.9997750356361238
+    },
+    "initial_decoder_local_root": {
+      "all_finite": true,
+      "max_abs_error": 0.18399715423583984,
+      "mean_abs_error": 0.01984978955608147,
+      "p95_abs_error": 0.061334043741226196,
+      "p99_abs_error": 0.12266522645950317,
+      "fraction_abs_error_gt_0_01": 0.44886363636363635,
+      "cosine_similarity": 0.9997410289146917
+    },
+    "initial_decoder_body": {
+      "all_finite": true,
+      "max_abs_error": 0.0966796875,
+      "mean_abs_error": 0.007378834953674903,
+      "p95_abs_error": 0.0244140625,
+      "p99_abs_error": 0.0400390625,
+      "fraction_abs_error_gt_0_01": 0.24384615384615385,
+      "cosine_similarity": 0.9999476576624702
+    },
+    "initial_explicit": {
+      "all_finite": true,
+      "max_abs_error": 0.0966796875,
+      "mean_abs_error": 0.00727477474307472,
+      "p95_abs_error": 0.0244140625,
+      "p99_abs_error": 0.0400390625,
+      "fraction_abs_error_gt_0_01": 0.24015151515151514,
+      "cosine_similarity": 0.9999480888534868
+    },
+    "initial_explicit_vs_pytorch_fp32": {
+      "all_finite": true,
+      "max_abs_error": 0.06932419538497925,
+      "mean_abs_error": 0.005316718118867191,
+      "p95_abs_error": 0.017288434505462635,
+      "p99_abs_error": 0.027670133709907556,
+      "fraction_abs_error_gt_0_01": 0.15568181818181817,
+      "cosine_similarity": 0.999973330610587
+    },
+    "continuation_history_hybrid": {
+      "all_finite": true,
+      "max_abs_error": 0.12320069968700409,
+      "mean_abs_error": 0.0008324371600473249,
+      "p95_abs_error": 0.0,
+      "p99_abs_error": 0.0,
+      "fraction_abs_error_gt_0_01": 0.006756756756756757,
+      "cosine_similarity": 0.9999418778442356
+    },
+    "continuation_clean": {
+      "all_finite": true,
+      "max_abs_error": 0.04296875,
+      "mean_abs_error": 0.0072560903188344595,
+      "p95_abs_error": 0.021484375,
+      "p99_abs_error": 0.0302734375,
+      "fraction_abs_error_gt_0_01": 0.2581081081081081,
+      "cosine_similarity": 0.9999369339140625
+    },
+    "continuation_clean_vs_pytorch_fp32": {
+      "all_finite": true,
+      "max_abs_error": 0.04097187519073486,
+      "mean_abs_error": 0.007568663152287135,
+      "p95_abs_error": 0.02041645050048828,
+      "p99_abs_error": 0.030384178161621145,
+      "fraction_abs_error_gt_0_01": 0.28243243243243243,
+      "cosine_similarity": 0.9999379848583411
+    },
+    "continuation_global_root": {
+      "all_finite": true,
+      "max_abs_error": 0.01123046875,
+      "mean_abs_error": 0.0017610015469306912,
+      "p95_abs_error": 0.005883789062499992,
+      "p99_abs_error": 0.010649419724941255,
+      "fraction_abs_error_gt_0_01": 0.01818181818181818,
+      "cosine_similarity": 0.9999970886725582
+    },
+    "continuation_decoder_latent": {
+      "all_finite": true,
+      "max_abs_error": 0.17123448848724365,
+      "mean_abs_error": 0.007563390867289854,
+      "p95_abs_error": 0.09314452707767484,
+      "p99_abs_error": 0.1212314784526825,
+      "fraction_abs_error_gt_0_01": 0.078125,
+      "cosine_similarity": 0.9995532429591601
+    },
+    "continuation_decoder_local_root": {
+      "all_finite": true,
+      "max_abs_error": 0.15274763107299805,
+      "mean_abs_error": 0.02571639789543538,
+      "p95_abs_error": 0.09199860692024231,
+      "p99_abs_error": 0.12266826629638672,
+      "fraction_abs_error_gt_0_01": 0.5227272727272727,
+      "cosine_similarity": 0.999699860508313
+    },
+    "continuation_decoder_body": {
+      "all_finite": true,
+      "max_abs_error": 0.2711639404296875,
+      "mean_abs_error": 0.012442645768185595,
+      "p95_abs_error": 0.0400390625,
+      "p99_abs_error": 0.068359375,
+      "fraction_abs_error_gt_0_01": 0.4123076923076923,
+      "cosine_similarity": 0.9998728622945624
+    },
+    "continuation_explicit": {
+      "all_finite": true,
+      "max_abs_error": 0.2711639404296875,
+      "mean_abs_error": 0.012280802673924158,
+      "p95_abs_error": 0.0400390625,
+      "p99_abs_error": 0.06831298828124988,
+      "fraction_abs_error_gt_0_01": 0.40633608815426997,
+      "cosine_similarity": 0.9998746152156183
+    },
+    "continuation_explicit_vs_pytorch_fp32": {
+      "all_finite": true,
+      "max_abs_error": 0.23790249228477478,
+      "mean_abs_error": 0.011884922624080438,
+      "p95_abs_error": 0.0367202468216419,
+      "p99_abs_error": 0.06409098744392387,
+      "fraction_abs_error_gt_0_01": 0.4108126721763085,
+      "cosine_similarity": 0.9998897365584943
+    },
+    "continuation_inertialized": {
+      "all_finite": true,
+      "max_abs_error": 0.2711639404296875,
+      "mean_abs_error": 0.012280802673924158,
+      "p95_abs_error": 0.0400390625,
+      "p99_abs_error": 0.06831298828124988,
+      "fraction_abs_error_gt_0_01": 0.40633608815426997,
+      "cosine_similarity": 0.9998746152156183
+    }
+  },
+  "fsq_endpoint_diagnostics": {
+    "initial_vs_pytorch_same_precision": {
+      "bin_match_fraction": 0.96796875,
+      "near_boundary_fraction": 0.09765625,
+      "distance_to_nearest_center_mean_bins": 0.2491007149219513,
+      "distance_to_nearest_center_p95_bins": 0.47561115026474
+    },
+    "initial_vs_pytorch_fp32": {
+      "bin_match_fraction": 0.97890625,
+      "near_boundary_fraction": 0.09765625,
+      "distance_to_nearest_center_mean_bins": 0.2491007149219513,
+      "distance_to_nearest_center_p95_bins": 0.47561115026474
+    },
+    "continuation_vs_pytorch_same_precision": {
+      "bin_match_fraction": 0.91484375,
+      "near_boundary_fraction": 0.10234375,
+      "distance_to_nearest_center_mean_bins": 0.2526400685310364,
+      "distance_to_nearest_center_p95_bins": 0.4771859645843506
+    },
+    "continuation_vs_pytorch_fp32": {
+      "bin_match_fraction": 0.9234375,
+      "near_boundary_fraction": 0.10234375,
+      "distance_to_nearest_center_mean_bins": 0.2526400685310364,
+      "distance_to_nearest_center_p95_bins": 0.4771859645843506
+    }
+  },
+  "numeric_acceptance": {
+    "passed": false,
+    "observed": {
+      "same_precision_endpoint_max_abs": 0.04296875,
+      "fp32_endpoint_max_abs": 0.04097187519073486,
+      "fp32_explicit_mean_abs": 0.011884922624080438,
+      "fp32_explicit_p99_abs": 0.06409098744392387,
+      "fp32_explicit_cosine": 0.9998897365584943,
+      "fsq_bin_match_fraction": 0.91484375
+    },
+    "thresholds": {
+      "same_precision_endpoint_max_abs": 0.025,
+      "fp32_endpoint_max_abs": 0.02,
+      "fp32_explicit_mean_abs": 0.015,
+      "fp32_explicit_p99_abs": 0.075,
+      "fp32_explicit_cosine": 0.9999,
+      "fsq_bin_match_fraction": 0.94
+    },
+    "note": "Continuous flow endpoints retain max-error gates. After discontinuous FSQ rounding, acceptance uses bin agreement plus mean/p99/cosine while the worst elementwise error remains reported separately."
+  },
+  "max_abs_error_across_pipeline": 0.2711639404296875,
+  "shapes": {
+    "initial_explicit": [
+      1,
+      40,
+      330
+    ],
+    "continuation_explicit": [
+      1,
+      44,
+      330
+    ],
+    "browser_initial_segment": [
+      1,
+      40,
+      330
+    ],
+    "browser_continuation_segment": [
+      1,
+      40,
+      330
+    ],
+    "buffer_after_second_window": [
+      1,
+      77,
+      330
+    ]
+  },
+  "sparse_path_indices": {
+    "initial": [
+      60
+    ],
+    "continuation": [
+      62
+    ]
+  },
+  "timings_ms_cpu_single_run": {
+    "initial": {
+      "flow_ms": 95.15561535954475,
+      "finalize_ms": 0.33700093626976013,
+      "decoder_ms": 35.89623421430588
+    },
+    "continuation": {
+      "encoder_ms": 8.80325585603714,
+      "flow_ms": 100.88139027357101,
+      "finalize_ms": 0.29381364583969116,
+      "decoder_ms": 24.012979120016098
+    }
+  },
+  "download": {
+    "learned_graph_bytes": 104062612,
+    "utility_graph_bytes": 45264,
+    "total_onnx_bytes": 104107876,
+    "budget_bytes": 110000000,
+    "under_budget": true,
+    "total_mib": 99.28500747680664,
+    "under_configured_budget": true
+  },
+  "conditioning": {
+    "prompt_id": 1,
+    "prompt_text": "A person is walking.",
+    "text_feature_shape": [
+      1,
+      7680
+    ],
+    "heading_condition_shape": [
+      1,
+      64,
+      3
+    ],
+    "heading_valid_count": 0
+  },
+  "tolerance": {
+    "same_precision_endpoint_max_abs": 0.025,
+    "fp32_endpoint_max_abs": 0.02,
+    "fp32_explicit_mean_abs": 0.015,
+    "fp32_explicit_p99_abs": 0.075,
+    "fp32_explicit_cosine": 0.9999,
+    "fsq_bin_match_fraction": 0.94
+  }
+}

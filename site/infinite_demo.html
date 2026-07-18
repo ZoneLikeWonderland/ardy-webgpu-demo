@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ARDY Student WebGPU 无限生成</title>
+    <link rel="stylesheet" href="./infinite_demo/demo.css" />
+  </head>
+  <body>
+    <canvas id="viewport" aria-label="ARDY 骨架动画与目标点选择区域"></canvas>
+
+    <header class="topbar">
+      <div>
+        <h1>ARDY Student <span>WebGPU</span></h1>
+        <p>NFE=1 无限自回归 · 鼠标点击地面选择目标</p>
+      </div>
+      <div class="badges">
+        <span id="gpu-badge" class="badge pending">检测 GPU</span>
+        <span id="precision-badge" class="badge">FP16 · pilot</span>
+      </div>
+    </header>
+
+    <aside class="controls" aria-label="播放与生成控制">
+      <div class="control-row">
+        <button id="play-button" class="primary" disabled>开始</button>
+        <button id="restart-button" disabled>重新开始</button>
+      </div>
+      <div class="control-row single">
+        <button id="clear-waypoints-button" disabled>清空所有选点</button>
+      </div>
+
+      <label>
+        部署版本
+        <select id="precision-select" disabled>
+          <option value="fp16" selected>FP16 NFE=1 · DMD pilot</option>
+        </select>
+      </label>
+
+      <label>
+        动作文本
+        <select id="prompt-select" disabled>
+          <option>加载 Qwen 特征…</option>
+        </select>
+      </label>
+
+      <label>
+        显示后处理
+        <select id="postprocess-select" disabled>
+          <option>加载后处理模式…</option>
+        </select>
+      </label>
+      <small id="postprocess-description" class="mode-description">只改变显示，不回灌生成状态。</small>
+
+      <div class="stats">
+        <div><span>状态</span><strong id="state-value">初始化</strong></div>
+        <div><span>当前帧</span><strong id="frame-value">0 / 0</strong></div>
+        <div><span>目标点</span><strong id="target-value">未设置</strong></div>
+        <div><span>上一轮生成</span><strong id="timing-value">—</strong></div>
+        <div><span>显示后处理</span><strong id="postprocess-value">原始（对照）</strong></div>
+      </div>
+
+      <p class="hint">左键点击地面设置当前帧 +60 的稀疏 waypoint。后处理只改变显示轨迹和骨架，模型 history 保持原始输出；切换模式会在同一原始动作、同一帧即时重算，便于公平 A/B。推理期间时间冻结，不跳帧。</p>
+
+      <details>
+        <summary>运行日志</summary>
+        <pre id="log"></pre>
+      </details>
+    </aside>
+
+    <div class="legend">
+      <span><i class="dot target"></i>目标</span>
+      <span><i class="dot path"></i>生成轨迹</span>
+      <span><i class="dot actor"></i>ARDY Student</span>
+    </div>
+
+    <section class="timeline" aria-label="动作时间轴">
+      <div class="timeline-head">
+        <strong id="timeline-time">00:00.00</strong>
+        <span id="timeline-frame">frame 0</span>
+        <span class="timeline-note">绿色：已生成　橙色：2D Root waypoint</span>
+      </div>
+      <canvas id="timeline-canvas"></canvas>
+    </section>
+
+    <div id="loading" class="loading">
+      <div class="spinner"></div>
+      <strong id="loading-title">准备 WebGPU</strong>
+      <span id="loading-detail">首次加载模型需要一些时间</span>
+    </div>
+
+    <script type="module" src="./infinite_demo/demo.js"></script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store
+
+# Credentials and local TLS material must never enter this repository.
+.env
+.env.*
+*token*
+*.key
+*.pem
+*.p12
+.tls/
+
+# Training data, checkpoints, and local run state are intentionally excluded.
+distill_data/
+distill_runs/
+checkpoints/
+results/
+cases/
+
