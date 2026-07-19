@@ -1,0 +1,126 @@
+{
+  "schema": "ardy_core_skin_web_v1",
+  "source": "ardy/ardy/assets/skeletons/cskel27/skin_standard.npz",
+  "source_sha256": "4ed2b1ea33a997d7777a59d74ec2312b52af2276331048c954441f5f44f6e58b",
+  "binary_url": "core_skin.bin",
+  "binary_size_bytes": 557484,
+  "binary_sha256": "a4affa8c939feb91f78e460d5273850b816c5e2e0d0368e93e77843c491fc9e9",
+  "vertex_count": 9084,
+  "triangle_count": 18152,
+  "joint_count": 27,
+  "influences_per_vertex": 5,
+  "matrix_storage": "row_major",
+  "webgl_palette_storage": "column_major_after_posed_times_inverse_bind",
+  "joint_names": [
+    "Hips",
+    "Spine",
+    "Spine1",
+    "Spine2",
+    "Spine3",
+    "Neck",
+    "Head",
+    "RightShoulder",
+    "RightArm",
+    "RightForeArm",
+    "RightHand",
+    "RightHandEnd",
+    "RightHandThumb1",
+    "LeftShoulder",
+    "LeftArm",
+    "LeftForeArm",
+    "LeftHand",
+    "LeftHandEnd",
+    "LeftHandThumb1",
+    "RightUpLeg",
+    "RightLeg",
+    "RightFoot",
+    "RightToeBase",
+    "LeftUpLeg",
+    "LeftLeg",
+    "LeftFoot",
+    "LeftToeBase"
+  ],
+  "sections": {
+    "positions": {
+      "offset_bytes": 0,
+      "length": 27252,
+      "shape": [
+        9084,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "normals": {
+      "offset_bytes": 109008,
+      "length": 27252,
+      "shape": [
+        9084,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "indices": {
+      "offset_bytes": 218016,
+      "length": 54456,
+      "shape": [
+        18152,
+        3
+      ],
+      "dtype": "uint16"
+    },
+    "joint_indices_0": {
+      "offset_bytes": 326928,
+      "length": 36336,
+      "shape": [
+        9084,
+        4
+      ],
+      "dtype": "uint8"
+    },
+    "joint_indices_1": {
+      "offset_bytes": 363264,
+      "length": 9084,
+      "shape": [
+        9084
+      ],
+      "dtype": "uint8"
+    },
+    "weights_0": {
+      "offset_bytes": 372348,
+      "length": 36336,
+      "shape": [
+        9084,
+        4
+      ],
+      "dtype": "float32"
+    },
+    "weights_1": {
+      "offset_bytes": 517692,
+      "length": 9084,
+      "shape": [
+        9084
+      ],
+      "dtype": "float32"
+    },
+    "bind_transforms": {
+      "offset_bytes": 554028,
+      "length": 432,
+      "shape": [
+        27,
+        4,
+        4
+      ],
+      "dtype": "float32"
+    },
+    "inverse_bind_transforms": {
+      "offset_bytes": 555756,
+      "length": 432,
+      "shape": [
+        27,
+        4,
+        4
+      ],
+      "dtype": "float32"
+    }
+  }
+}

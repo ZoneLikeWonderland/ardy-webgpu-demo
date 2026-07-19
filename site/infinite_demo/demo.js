@@ -4,6 +4,7 @@ import {
   postprocessMotionForDisplay,
   resolvePostprocessMode,
 } from './postprocess.js';
+import { loadCoreSkinRenderer } from './skin_renderer.js';
 
 const runtimeBase = new URL('../vendor/onnxruntime-web-1.27.0/', import.meta.url).href;
 ort.env.wasm.wasmPaths = runtimeBase;
@@ -19,6 +20,10 @@ const gpuProfilingEnabled = urlOptions.get('profile') === '1';
 const serverBridgeEnabled = urlOptions.get('bridge') === '1';
 const candidateId = (urlOptions.get('candidate') || '').trim();
 const frontendProtocol = 4;
+const modelVisibilityOption = urlOptions.get('mesh');
+const initialModelVisible = modelVisibilityOption === null
+  ? localStorage.getItem('ardy-infinite-demo-show-model') !== '0'
+  : modelVisibilityOption !== '0';
 const initialPostprocessMode = resolvePostprocessMode(
   urlOptions.get('post')
   || localStorage.getItem('ardy-infinite-demo-postprocess')
@@ -56,10 +61,13 @@ if (gpuProfilingEnabled) {
 }
 
 const ui = {
+  modelCanvas: document.querySelector('#model-viewport'),
+  overlayCanvas: document.querySelector('#overlay-viewport'),
   canvas: document.querySelector('#viewport'),
   play: document.querySelector('#play-button'),
   restart: document.querySelector('#restart-button'),
   clearWaypoints: document.querySelector('#clear-waypoints-button'),
+  modelToggle: document.querySelector('#model-toggle-button'),
   precision: document.querySelector('#precision-select'),
   prompt: document.querySelector('#prompt-select'),
   postprocess: document.querySelector('#postprocess-select'),
@@ -71,6 +79,7 @@ const ui = {
   target: document.querySelector('#target-value'),
   timing: document.querySelector('#timing-value'),
   postprocessValue: document.querySelector('#postprocess-value'),
+  modelVisibilityValue: document.querySelector('#model-visibility-value'),
   log: document.querySelector('#log'),
   loading: document.querySelector('#loading'),
   loadingTitle: document.querySelector('#loading-title'),
@@ -81,7 +90,19 @@ const ui = {
 };
 
 const ctx = ui.canvas.getContext('2d');
+const overlayCtx = ui.overlayCanvas.getContext('2d');
 const timelineCtx = ui.timeline.getContext('2d');
+let skinRenderer = null;
+const modelRenderCache = {
+  currentMotion: null,
+  nextMotion: null,
+  alpha: Number.NaN,
+  cameraX: Number.NaN,
+  cameraZ: Number.NaN,
+  width: 0,
+  height: 0,
+  dpr: 0,
+};
 const sessions = {
   encoder: null,
   flow: null,
@@ -123,6 +144,10 @@ const state = {
   postprocessMode: initialPostprocessMode,
   lastPostprocessMs: 0,
   lastPostprocessFrames: 0,
+  modelVisible: initialModelVisible,
+  modelRendererReady: false,
+  modelCanvasHasFrame: false,
+  modelFirstFrameReported: false,
 };
 const clientId = localStorage.getItem('ardy-infinite-demo-client-id') || crypto.randomUUID();
 localStorage.setItem('ardy-infinite-demo-client-id', clientId);
@@ -183,6 +208,80 @@ function configurePostprocessUi() {
   updatePostprocessDescription();
 }
 
+function updateModelVisibilityUi() {
+  if (!state.modelRendererReady) {
+    ui.modelToggle.textContent = '加载人体模型…';
+    ui.modelToggle.disabled = true;
+    ui.modelToggle.setAttribute('aria-pressed', String(state.modelVisible));
+    ui.modelVisibilityValue.textContent = '加载中';
+    return;
+  }
+  ui.modelToggle.disabled = false;
+  ui.modelToggle.textContent = state.modelVisible ? '隐藏人体模型' : '显示人体模型';
+  ui.modelToggle.setAttribute('aria-pressed', String(state.modelVisible));
+  ui.modelVisibilityValue.textContent = state.modelVisible ? '官方 CoreSkin' : '仅骨架';
+}
+
+function resetModelRenderCache() {
+  modelRenderCache.currentMotion = null;
+  modelRenderCache.nextMotion = null;
+  modelRenderCache.alpha = Number.NaN;
+  modelRenderCache.cameraX = Number.NaN;
+  modelRenderCache.cameraZ = Number.NaN;
+  modelRenderCache.width = 0;
+  modelRenderCache.height = 0;
+  modelRenderCache.dpr = 0;
+}
+
+async function initializeCoreSkinRenderer() {
+  updateModelVisibilityUi();
+  try {
+    skinRenderer = await loadCoreSkinRenderer(
+      ui.modelCanvas,
+      './infinite_demo/assets/core_skin.json',
+    );
+    ui.modelCanvas.style.visibility = 'visible';
+    state.modelRendererReady = true;
+    resetModelRenderCache();
+    updateModelVisibilityUi();
+    log(
+      `官方 CoreSkin 已加载：${skinRenderer.metadata.vertex_count} 顶点，`
+      + `${skinRenderer.metadata.triangle_count} 三角形，5-weight GPU 蒙皮。`,
+    );
+    telemetry('report', {
+      event: 'core_skin_ready',
+      vertices: skinRenderer.metadata.vertex_count,
+      triangles: skinRenderer.metadata.triangle_count,
+      influences_per_vertex: skinRenderer.metadata.influences_per_vertex,
+    });
+  } catch (error) {
+    console.error(error);
+    skinRenderer = null;
+    ui.modelCanvas.style.visibility = 'hidden';
+    state.modelRendererReady = false;
+    state.modelVisible = false;
+    ui.modelToggle.textContent = '人体模型不可用';
+    ui.modelToggle.disabled = true;
+    ui.modelToggle.setAttribute('aria-pressed', 'false');
+    ui.modelVisibilityValue.textContent = '仅骨架（模型加载失败）';
+    log(`官方 CoreSkin 加载失败，继续使用骨架显示：${error.stack || error}`);
+  }
+}
+
+function toggleCharacterModel() {
+  if (!state.modelRendererReady) return;
+  state.modelVisible = !state.modelVisible;
+  localStorage.setItem('ardy-infinite-demo-show-model', state.modelVisible ? '1' : '0');
+  if (!state.modelVisible && state.modelCanvasHasFrame) {
+    skinRenderer.clear(state.width, state.height, state.dpr);
+    state.modelCanvasHasFrame = false;
+    resetModelRenderCache();
+  }
+  updateModelVisibilityUi();
+  log(`角色显示切换为：${state.modelVisible ? '官方 CoreSkin 人体模型 + 骨架' : '仅骨架'}。`);
+  telemetry('report', { event: 'model_visibility_changed', model_visible: state.modelVisible });
+}
+
 async function telemetry(kind, payload = {}) {
   if (!serverBridgeEnabled) return;
   try {
@@ -203,6 +302,7 @@ async function telemetry(kind, payload = {}) {
         adapter: state.adapter,
         frontend_protocol: frontendProtocol,
         postprocess_mode: state.postprocessMode,
+        model_visible: state.modelVisible,
         prompt_id: selectedPromptEntry()?.prompt_id ?? null,
         prompt_text: selectedPromptEntry()?.text ?? null,
         ...payload,
@@ -1367,6 +1467,9 @@ function resizeCanvas() {
   ui.canvas.width = Math.round(rect.width * state.dpr);
   ui.canvas.height = Math.round(rect.height * state.dpr);
   ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
+  ui.overlayCanvas.width = Math.round(rect.width * state.dpr);
+  ui.overlayCanvas.height = Math.round(rect.height * state.dpr);
+  overlayCtx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
   const timelineRect = ui.timeline.getBoundingClientRect();
   state.timelineWidth = timelineRect.width;
   state.timelineHeight = timelineRect.height;
@@ -1500,17 +1603,17 @@ function drawTrajectory() {
     : state.motionFrames;
   if (frames.length < 2) return;
   const start = Math.max(0, state.frameIndex - 100);
-  ctx.beginPath();
+  overlayCtx.beginPath();
   for (let index = start; index < frames.length; index += 1) {
     const frame = frames[index];
     const mean = state.manifest.root_stats.mean;
     const std = state.manifest.root_stats.std_eps;
     const point = project(frame[0] * std[0] + mean[0], 0.012, frame[2] * std[2] + mean[2]);
-    if (index === start) ctx.moveTo(point.x, point.y); else ctx.lineTo(point.x, point.y);
+    if (index === start) overlayCtx.moveTo(point.x, point.y); else overlayCtx.lineTo(point.x, point.y);
   }
-  ctx.strokeStyle = 'rgba(61, 200, 165, .65)';
-  ctx.lineWidth = 2;
-  ctx.stroke();
+  overlayCtx.strokeStyle = 'rgba(61, 200, 165, .65)';
+  overlayCtx.lineWidth = 2;
+  overlayCtx.stroke();
 }
 
 function drawTarget() {
@@ -1521,14 +1624,95 @@ function drawTarget() {
     const isLatest = waypoint === latest;
     const radius = isLatest ? 7 + Math.sin(performance.now() * 0.006) * 2 : 6;
     const reached = waypoint.frame < state.frameIndex;
-    ctx.strokeStyle = reached ? 'rgba(255, 173, 85, .35)' : '#ffad55';
-    ctx.fillStyle = reached ? 'rgba(255, 173, 85, .06)' : 'rgba(255, 173, 85, .18)';
-    ctx.lineWidth = isLatest ? 2 : 1.4;
-    ctx.beginPath(); ctx.arc(p.x, p.y, radius, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(p.x - 10, p.y); ctx.lineTo(p.x + 10, p.y); ctx.moveTo(p.x, p.y - 10); ctx.lineTo(p.x, p.y + 10); ctx.stroke();
-    ctx.fillStyle = reached ? 'rgba(255, 190, 120, .45)' : '#ffc17c';
-    ctx.font = '11px ui-monospace, monospace';
-    ctx.fillText(`f${waypoint.frame}`, p.x + 10, p.y - 10);
+    overlayCtx.strokeStyle = reached ? 'rgba(255, 173, 85, .35)' : '#ffad55';
+    overlayCtx.fillStyle = reached ? 'rgba(255, 173, 85, .06)' : 'rgba(255, 173, 85, .18)';
+    overlayCtx.lineWidth = isLatest ? 2 : 1.4;
+    overlayCtx.beginPath(); overlayCtx.arc(p.x, p.y, radius, 0, Math.PI * 2); overlayCtx.fill(); overlayCtx.stroke();
+    overlayCtx.beginPath(); overlayCtx.moveTo(p.x - 10, p.y); overlayCtx.lineTo(p.x + 10, p.y); overlayCtx.moveTo(p.x, p.y - 10); overlayCtx.lineTo(p.x, p.y + 10); overlayCtx.stroke();
+    overlayCtx.fillStyle = reached ? 'rgba(255, 190, 120, .45)' : '#ffc17c';
+    overlayCtx.font = '11px ui-monospace, monospace';
+    overlayCtx.fillText(`f${waypoint.frame}`, p.x + 10, p.y - 10);
+  }
+}
+
+function drawCharacterModel() {
+  if (!skinRenderer) return;
+  const currentMotion = state.displayMotionFrames[state.frameIndex];
+  if (!state.modelVisible || !currentMotion || !state.motionStats) {
+    if (state.modelCanvasHasFrame) {
+      skinRenderer.clear(state.width, state.height, state.dpr);
+      state.modelCanvasHasFrame = false;
+      resetModelRenderCache();
+    }
+    return;
+  }
+  const alpha = displayInterpolationAlpha();
+  const nextMotion = alpha > 0 ? state.displayMotionFrames[state.frameIndex + 1] : null;
+  const renderUnchanged = (
+    state.modelCanvasHasFrame
+    && currentMotion === modelRenderCache.currentMotion
+    && nextMotion === modelRenderCache.nextMotion
+    && Math.abs(alpha - modelRenderCache.alpha) < 1e-4
+    && Math.abs(state.cameraX - modelRenderCache.cameraX) < 1e-3
+    && Math.abs(state.cameraZ - modelRenderCache.cameraZ) < 1e-3
+    && state.width === modelRenderCache.width
+    && state.height === modelRenderCache.height
+    && state.dpr === modelRenderCache.dpr
+  );
+  if (renderUnchanged) return;
+  try {
+    motionFrameToJointsFromRotations({
+      motion: currentMotion,
+      motionBase: 0,
+      nextMotion,
+      nextMotionBase: 0,
+      alpha,
+      joints: interpolatedJointScratch,
+      jointBase: 0,
+      matrices: interpolatedMatrixScratch,
+    });
+    skinRenderer.render({
+      globalRotations: interpolatedMatrixScratch,
+      jointPositions: interpolatedJointScratch,
+      width: state.width,
+      height: state.height,
+      dpr: state.dpr,
+      cameraX: state.cameraX,
+      cameraZ: state.cameraZ,
+      scale: viewScale(),
+    });
+    state.modelCanvasHasFrame = true;
+    modelRenderCache.currentMotion = currentMotion;
+    modelRenderCache.nextMotion = nextMotion;
+    modelRenderCache.alpha = alpha;
+    modelRenderCache.cameraX = state.cameraX;
+    modelRenderCache.cameraZ = state.cameraZ;
+    modelRenderCache.width = state.width;
+    modelRenderCache.height = state.height;
+    modelRenderCache.dpr = state.dpr;
+    if (!state.modelFirstFrameReported) {
+      state.modelFirstFrameReported = true;
+      telemetry('report', { event: 'core_skin_first_frame' });
+    }
+  } catch (error) {
+    console.error(error);
+    try {
+      skinRenderer.clear(state.width, state.height, state.dpr);
+    } catch {
+      ui.modelCanvas.width = 1;
+      ui.modelCanvas.height = 1;
+    }
+    skinRenderer = null;
+    ui.modelCanvas.style.visibility = 'hidden';
+    state.modelRendererReady = false;
+    state.modelVisible = false;
+    state.modelCanvasHasFrame = false;
+    resetModelRenderCache();
+    ui.modelToggle.textContent = '人体模型渲染失败';
+    ui.modelToggle.disabled = true;
+    ui.modelToggle.setAttribute('aria-pressed', 'false');
+    ui.modelVisibilityValue.textContent = '仅骨架（渲染失败）';
+    log(`官方 CoreSkin 渲染失败，已降级为骨架：${error.stack || error}`);
   }
 }
 
@@ -1557,25 +1741,25 @@ function drawSkeleton() {
     const offset = joint * 3;
     points[joint] = project(joints[offset], joints[offset + 1], joints[offset + 2]);
   }
-  ctx.lineCap = 'round';
-  ctx.lineJoin = 'round';
-  ctx.strokeStyle = 'rgba(211, 232, 250, .92)';
-  ctx.lineWidth = 3;
-  ctx.beginPath();
+  overlayCtx.lineCap = 'round';
+  overlayCtx.lineJoin = 'round';
+  overlayCtx.strokeStyle = 'rgba(211, 232, 250, .92)';
+  overlayCtx.lineWidth = 3;
+  overlayCtx.beginPath();
   for (let joint = 0; joint < parents.length; joint += 1) {
     const parent = parents[joint];
     if (parent < 0) continue;
-    ctx.moveTo(points[parent].x, points[parent].y);
-    ctx.lineTo(points[joint].x, points[joint].y);
+    overlayCtx.moveTo(points[parent].x, points[parent].y);
+    overlayCtx.lineTo(points[joint].x, points[joint].y);
   }
-  ctx.stroke();
-  ctx.fillStyle = '#73e3c4';
+  overlayCtx.stroke();
+  overlayCtx.fillStyle = '#73e3c4';
   for (const point of points) {
-    ctx.beginPath(); ctx.arc(point.x, point.y, 2.4, 0, Math.PI * 2); ctx.fill();
+    overlayCtx.beginPath(); overlayCtx.arc(point.x, point.y, 2.4, 0, Math.PI * 2); overlayCtx.fill();
   }
   const root = points[state.manifest.skeleton.root_index];
-  ctx.fillStyle = '#eef7ff';
-  ctx.beginPath(); ctx.arc(root.x, root.y, 4, 0, Math.PI * 2); ctx.fill();
+  overlayCtx.fillStyle = '#eef7ff';
+  overlayCtx.beginPath(); overlayCtx.arc(root.x, root.y, 4, 0, Math.PI * 2); overlayCtx.fill();
 }
 
 function render(now) {
@@ -1594,14 +1778,16 @@ function render(now) {
     }
   }
   const root = currentDisplayRootPosition();
-  const cameraBlend = 1 - Math.exp(-dt * 4);
+  const cameraBlend = state.generating ? 0 : 1 - Math.exp(-dt * 4);
   state.cameraX += (root.x - state.cameraX) * cameraBlend;
   state.cameraZ += (root.z - state.cameraZ) * cameraBlend;
 
   ctx.clearRect(0, 0, state.width, state.height);
+  overlayCtx.clearRect(0, 0, state.width, state.height);
   drawGrid();
   drawTrajectory();
   drawTarget();
+  drawCharacterModel();
   drawSkeleton();
   drawTimeline();
   updateUi();
@@ -2042,7 +2228,14 @@ async function executeDemoCommand(job) {
     await selectPostprocessMode(mode.id);
   } else if (action === 'reload') {
     // Give the command completion report time to reach the server first.
-    setTimeout(() => window.location.reload(), 500);
+    const reloadUrl = new URL(window.location.href);
+    if (typeof command.mesh === 'boolean') {
+      state.modelVisible = command.mesh;
+      localStorage.setItem('ardy-infinite-demo-show-model', command.mesh ? '1' : '0');
+      if (command.mesh) reloadUrl.searchParams.delete('mesh');
+      else reloadUrl.searchParams.set('mesh', '0');
+    }
+    setTimeout(() => window.location.assign(reloadUrl), 500);
   } else {
     throw new Error(`未知服务器命令: ${action}`);
   }
@@ -2139,6 +2332,7 @@ async function init() {
     if (state.motionStats.mean.length !== state.manifest.motion_dim || state.motionStats.std_eps.length !== state.manifest.motion_dim) {
       throw new Error('motion stats 维度与模型不一致');
     }
+    await initializeCoreSkinRenderer();
     const projectionPasses = state.manifest.distillation?.root_projection?.passes ?? 0;
     if (candidateId) log(`A/B 候选: ${candidateId}（默认 release 未被替换）`);
     log(`模型 ${state.manifest.model}; ${state.manifest.fps} FPS; history=4; generation=40; waypoint=60; graph root projection=${projectionPasses}`);
@@ -2161,6 +2355,7 @@ async function init() {
 ui.play.addEventListener('click', togglePlay);
 ui.restart.addEventListener('click', restart);
 ui.clearWaypoints.addEventListener('click', clearWaypoints);
+ui.modelToggle.addEventListener('click', toggleCharacterModel);
 ui.postprocess.addEventListener('change', () => {
   selectPostprocessMode(ui.postprocess.value).catch((error) => {
     console.error(error);

@@ -3,7 +3,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test tests/frontend/postprocess.test.mjs tests/frontend/postprocess.real.test.mjs"
+    "test": "node --test tests/frontend/postprocess.test.mjs tests/frontend/postprocess.real.test.mjs tests/frontend/skin_renderer.test.mjs"
   }
 }
-

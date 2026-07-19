@@ -18,7 +18,7 @@ page and no motion or prompt data is uploaded.
 
 Open the link above in a recent hardware-accelerated Chrome or Edge browser.
 The page requires a secure HTTPS context, WebGPU, and `shader-f16` support.
-The first visit downloads approximately 123 MiB of static runtime/model assets
+The first visit downloads approximately 124 MiB of static runtime/model assets
 and may spend additional time compiling WebGPU pipelines.
 
 The public demo provides:
@@ -26,6 +26,8 @@ The public demo provides:
 - NFE=1 FP16 autoregressive generation at a 20 FPS motion timeline;
 - start, pause, restart, and continuous 40-frame continuation;
 - mouse-selected sparse root waypoints;
+- the official 9,084-vertex ARDY CoreSkin character, with an instant
+  show/hide toggle and skeleton fallback;
 - a visible frame/time timeline and waypoint markers;
 - 33 precomputed Qwen prompt features;
 - raw, light, balanced, and strong display-only postprocessing modes.
