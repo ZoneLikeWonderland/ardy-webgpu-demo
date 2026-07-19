@@ -1915,8 +1915,8 @@ matched-time 的收益仍然强烈依赖 weight×iterations，并非单调。最
   learned FP16 ONNX、2 个固定 finalizer、ORT WebGPU runtime、33 条预计算
   Qwen prompt feature 和动画前端。teacher、文本编码器、历史模型、raw data、训练
   state、credentials 和 TLS 私钥均未进入仓库。
-- 5 个 ONNX 合计 `104,107,876 B = 99.29 MiB`；完整 Pages artifact 为
-  `129,774,339 B = 123.76 MiB`；最大 `flow.onnx` 为 `75,809,680 B =
+- 5 个 ONNX 合计 `104,107,876 B = 99.29 MiB`；含 CoreSkin 的完整 Pages artifact 为
+  `130,357,015 B = 124.32 MiB`；最大 `flow.onnx` 为 `75,809,680 B =
   72.30 MiB`，低于 GitHub 100 MiB 单文件硬限制。
 - `/api/demo/motion-stats` 已固化成 330 维静态 JSON；telemetry/remote-command
   bridge 默认关闭，仅显式 `?bridge=1` 时启用。公开页面不依赖 Python 服务，推理
@@ -1926,3 +1926,24 @@ matched-time 的收益仍然强烈依赖 weight×iterations，并非单调。最
   和 license 的请求均为 HTTPS 200；flow Range 实体请求返回 206。
 - 该 release 仍标记为 `experimental_pilot`。部署完整性通过不等于动画质量最终验收；
   真实浏览器上的连续 rollout、waypoint、prompt 和后处理交互仍需人工观察。
+
+## 2026-07-19：官方 CoreSkin 人体模型与 Pages 更新
+
+- 无限生成前端新增官方 ARDY CoreSkin 人体显示：9084 顶点、18152 三角形、27 个
+  关节、每顶点完整 5 个 LBS influence。浏览器按官方
+  `posed global transform × inverse(global bind transform)` 公式计算 skin matrix；
+  27×6D rotation 已是 global rotation，不再沿父子层级重复累乘。
+- 页面使用三层 canvas：底层 grid，中层 WebGL2 CoreSkin，上层轨迹、waypoint 和
+  骨架。三层复用相同姿态、相机与投影；鼠标选点仍由原 viewport 接收。显示/隐藏按钮
+  只改变可视化，不重载 ONNX、不清空动作、不改变当前帧、waypoint、后处理或下一轮
+  history；WebGL2 或资产失败时自动降级为骨架。
+- CoreSkin 静态资产为 `557,484 B`，SHA256
+  `a4affa8c939feb91f78e460d5273850b816c5e2e0d0368e93e77843c491fc9e9`。
+  renderer 不依赖 Three.js 或其他新包；每次有效重绘只上传 27 个 FP32 skin matrix
+  并执行一次 indexed draw，暂停或画面未改变时复用上一帧。
+- 初版暗蓝材质在深色背景上视觉上近似半透明。发布版改为高亮浅蓝实心材质，fragment
+  alpha 固定为 `1.0`，WebGL context 使用 `premultipliedAlpha: false`，模型 canvas
+  固定 `opacity: 1`；只有人体外部背景透明，表面完全不透明。
+- 数值回归覆盖完整 bundle/hash、bind pose 以及非 bind 五权重姿态。独立 row-major
+  LBS 参考与 JavaScript 对拍通过；Pages CI 同时运行两项后处理测试和三项 CoreSkin
+  测试，共 5 项，无需安装 npm dependency。

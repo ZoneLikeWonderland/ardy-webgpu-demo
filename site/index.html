@@ -8,6 +8,8 @@
   </head>
   <body>
     <canvas id="viewport" aria-label="ARDY 骨架动画与目标点选择区域"></canvas>
+    <canvas id="model-viewport" aria-hidden="true"></canvas>
+    <canvas id="overlay-viewport" aria-hidden="true"></canvas>
 
     <header class="topbar">
       <div>
@@ -25,8 +27,9 @@
         <button id="play-button" class="primary" disabled>开始</button>
         <button id="restart-button" disabled>重新开始</button>
       </div>
-      <div class="control-row single">
+      <div class="control-row">
         <button id="clear-waypoints-button" disabled>清空所有选点</button>
+        <button id="model-toggle-button" aria-pressed="true" disabled>加载人体模型…</button>
       </div>
 
       <label>
@@ -57,9 +60,10 @@
         <div><span>目标点</span><strong id="target-value">未设置</strong></div>
         <div><span>上一轮生成</span><strong id="timing-value">—</strong></div>
         <div><span>显示后处理</span><strong id="postprocess-value">原始（对照）</strong></div>
+        <div><span>角色显示</span><strong id="model-visibility-value">官方 CoreSkin</strong></div>
       </div>
 
-      <p class="hint">左键点击地面设置当前帧 +60 的稀疏 waypoint。后处理只改变显示轨迹和骨架，模型 history 保持原始输出；切换模式会在同一原始动作、同一帧即时重算，便于公平 A/B。推理期间时间冻结，不跳帧。</p>
+      <p class="hint">左键点击地面设置当前帧 +60 的稀疏 waypoint。“人体模型”复用官方 CoreSkin 蒙皮，只控制显示；后处理也不回灌模型 history。推理期间时间冻结，不跳帧。</p>
 
       <details>
         <summary>运行日志</summary>
@@ -70,7 +74,7 @@
     <div class="legend">
       <span><i class="dot target"></i>目标</span>
       <span><i class="dot path"></i>生成轨迹</span>
-      <span><i class="dot actor"></i>ARDY Student</span>
+      <span><i class="dot actor"></i>官方 CoreSkin / 骨架</span>
     </div>
 
     <section class="timeline" aria-label="动作时间轴">
